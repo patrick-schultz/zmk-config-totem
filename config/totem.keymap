@@ -31,7 +31,7 @@
 #define HM_TAPPING_TERM 280
 #define HM_TAPPING_TERM_FAST 200
 #define LAYER_TAPPING_TERM 200
-#define AK_TAPPING_TERM 40
+#define AK_TAPPING_TERM 200
 #define LK_TAPPING_TERM 200
 #define QUICK_TAP_MS 175
 
@@ -104,6 +104,7 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L KEYS_T)
 
 MAKE_HRM(hrm_a, &kp, &ak_A, KEYS_L KEYS_T)
 MAKE_HRM(hrm_e, &kp, &ak_E, KEYS_L KEYS_T)
+MAKE_HRM(hrm_h, &kp, &ad_h, KEYS_L KEYS_T)
 
 // Smart case
 
@@ -347,6 +348,13 @@ ZMK_BEHAVIOR(ak, sticky_key,
     quick-release;
 )
 
+ZMK_BEHAVIOR(ad_h, antecedent_morph,
+   defaults = <&kp H>;
+   bindings = <&kp U>;
+   antecedents = <A>;
+   max-delay-ms = <AK_TAPPING_TERM>;
+)
+
 #define MACRO_CHOOSER2(_1, _2, FUNC, ...) FUNC
 #define AK(...) MACRO_CHOOSER2(__VA_ARGS__, AK2, AK1)(__VA_ARGS__)
 #define AK2(KEY, LAYER) ZMK_MACRO_FAST(ak_##KEY, \
@@ -394,7 +402,7 @@ ZMK_BEHAVIOR(lk_qu_u, hold_tap,
 
 ZMK_LAYER(default_layer,
      &kp X         &kp W        &ak_M        &ak_G          &kp J        &bspc_del      &DotColn        &SlshStar      &DqtLbkt     &SqtRbkt
-     &hml LCTRL S  &hml LALT C  &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hrm_a RSHFT A  &hrm_e RCMD E  &hmr RALT I  &hmr RCTRL H
+     &hml LCTRL S  &hml LALT C  &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A    &hrm_e RCMD E  &hmr RALT I  &ad_h
 XXX  &ak_B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &ak_U           &ak_O          &ak_Y        &kp F         XXX
                                 XXX          &smart_case    &lt NUM R    &lt EXT SPACE  &lt_oss FN 0    XXX
 )
