@@ -187,7 +187,7 @@ ZMK_BEHAVIOR(num_dance, tap_dance,
 // Alt+Tab swapper
 ZMK_BEHAVIOR(swapper, tri_state,
     bindings = <&kt LCMD>, <&kp TAB>, <&kt LCMD>;
-    ignored-key-positions = <LT2>;
+    ignored-key-positions = <LH1>;
 )
 
 /* Combos */
