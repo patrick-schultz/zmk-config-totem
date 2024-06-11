@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/urob
     - name: patrick-schultz
       url-base: https://github.com/patrick-schultz
+    - name: adaptive-keys
+      url-base: https://github.com/klausweiss
   projects:
     - name: zmk
       remote: patrick-schultz
