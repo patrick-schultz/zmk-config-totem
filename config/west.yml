@@ -8,7 +8,7 @@ manifest:
       url-base: https://github.com/patrick-schultz
   projects:
     - name: zmk
-      remote: patrick-schultz
+      remote: urob
       revision: main
       import: app/west.yml
   self:
