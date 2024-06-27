@@ -182,8 +182,8 @@ ZMK_MACRO_FAST(ak_lg, <&kp BSPC &kp L &kp G>)
 
 ZMK_LAYER(default_layer,
      &kp X         &kp W        &kp M        &kp G          &kp J        &bspc_del      &DotColn        &SlshStar      &DqtLbkt     &SqtRbkt
-     &kp S         &kp C        &kp N        &kp T          &kp K        &CmmaSemi      &ak_A           &ak_E          &kp I        &kp H
-XXX  &kp B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &ak_U           &ak_O          &ak_Y        &kp F         XXX
+     &kp S         &kp C        &kp N        &kp T          &kp K        &CmmaSemi      &kp A           &kp E          &kp I        &kp H
+XXX  &kp B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U           &kp O          &kp Y        &kp F         XXX
                                 XXX          &sk LSHFT      &kp R        &kp SPACE      &sk LSHFT       XXX
 )
 
