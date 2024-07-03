@@ -68,10 +68,11 @@ layers:
 # adaptives:
 # gm -> gl
 # mg -> lg
+# mx -> mb
 # bc -> bs
+# cb -> sb
 # ah -> au
 # eh -> eo
 # uh -> ua
 # oh -> oe
-# ih -> if
 # yf -> yi

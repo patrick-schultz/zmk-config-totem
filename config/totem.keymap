@@ -74,17 +74,18 @@ ZMK_BEHAVIOR(layer_sticky, hold_tap,
 #define l_akG 1
 #define l_akB 2
 #define l_akM 3
-#define l_akE 4
-#define l_akA 5
-#define l_akO 6
-#define l_akU 7
-#define l_akY 8
-#define l_camel 9
-#define l_snake 10
-#define NUM 11
-#define EXT 12
-#define FN 13
-#define ALPHA_ALL ALPHA l_akG l_akB l_akM l_akE l_akA l_akO l_akU l_akY l_camel l_snake
+#define l_akC 4
+#define l_akE 5
+#define l_akA 6
+#define l_akO 7
+#define l_akU 8
+#define l_akY 9
+#define l_camel 10
+#define l_snake 11
+#define NUM 12
+#define EXT 13
+#define FN 14
+#define ALPHA_ALL ALPHA l_akG l_akB l_akM l_akC l_akE l_akA l_akO l_akU l_akY l_camel l_snake
 
 /* Homerow mods */
 
@@ -104,6 +105,7 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L KEYS_T)
 
 MAKE_HRM(hrm_a, &kp, &ak_A, KEYS_L KEYS_T)
 MAKE_HRM(hrm_e, &kp, &ak_E, KEYS_L KEYS_T)
+MAKE_HRM(hrm_c, &kp, &ak_C, KEYS_R KEYS_T)
 
 // Smart case
 
@@ -360,6 +362,7 @@ ZMK_BEHAVIOR(ak, sticky_key,
 AK2(G, G)
 AK2(B, B)
 AK2(M, M)
+AK2(C, C)
 AK2(A, A)
 AK2(U, U)
 AK2(E, E)
@@ -367,6 +370,7 @@ AK2(O, O)
 AK2(Y, Y)
 
 ZMK_MACRO_FAST(ak_lg, <&kp BSPC &kp L &kp G>)
+ZMK_MACRO_FAST(ak_sb, <&kp BSPC &kp S &kp B>)
 
 /* Linger Keys */
 
@@ -394,7 +398,7 @@ ZMK_BEHAVIOR(lk_qu_u, hold_tap,
 
 ZMK_LAYER(default_layer,
      &kp X         &kp W        &ak_M        &ak_G          &kp J        &bspc_del      &DotColn        &SlshStar      &DqtLbkt     &SqtRbkt
-     &hml LCTRL S  &hml LALT C  &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hrm_a RSHFT A  &hrm_e RCMD E  &hmr RALT I  &hmr RCTRL H
+     &hml LCTRL S &hrm_c LALT C &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hrm_a RSHFT A  &hrm_e RCMD E  &hmr RALT I  &hmr RCTRL H
 XXX  &ak_B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &ak_U           &ak_O          &ak_Y        &kp F         XXX
                                 XXX          &smart_case    &lt NUM R    &lt EXT SPACE  &lt_oss FN 0    XXX
 )
@@ -414,9 +418,16 @@ ___     ___     ___     ___     ___     ___    ___     ___     ___     ___     _
 )
 
 ZMK_LAYER(l_akM,
-        ___     ___     ___     &ak_lg  ___    ___     ___     ___     ___     ___
+        &kp B   ___     ___     &ak_lg  ___    ___     ___     ___     ___     ___
         ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
 ___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
+                        ___     ___     ___    ___     ___     ___
+)
+
+ZMK_LAYER(l_akC,
+        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
+        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
+___     &ak_sb  ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
                         ___     ___     ___    ___     ___     ___
 )
 
