@@ -35,51 +35,10 @@
 #define LK_TAPPING_TERM 200
 #define QUICK_TAP_MS 175
 
-&sk {  // sticky-key config
-    release-after-ms = <600>;  // release after 0.6s
-    quick-release;             // no double capitalization when rolling keys
-};
-
-&sl {  // sticky-layer config
-    ignore-modifiers;          // allow chording sticky mods & layers
-};
-
-&lt {  // layer-tap config
-    flavor = "balanced";
-    tapping-term-ms = <LAYER_TAPPING_TERM>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-};
-
-#define ZMK_MACRO_FAST(NAME, ...) \
-    ZMK_BEHAVIOR(NAME, macro, \
-        wait-ms = <0>; \
-        tap-ms = <0>; \
-        bindings = __VA_ARGS__ ; \
-    )
-
-ZMK_BEHAVIOR(long_sticky, sticky_key,
-    bindings = <&kp>;
-    release-after-ms = <5000>;
-    quick-release;)
-
-ZMK_BEHAVIOR(layer_sticky, hold_tap,
-    flavor = "balanced";
-    tapping-term-ms = <LAYER_TAPPING_TERM>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    bindings = <&mo>, <&long_sticky>;)
-    
 /* Layers */
 
 #define ALPHA 0
-#define l_akG 1
-#define l_akB 2
-#define l_akM 3
-#define l_akE 4
-#define l_akA 5
-#define l_akO 6
-#define l_akU 7
-#define l_akY 8
-#define ALPHA_ALL ALPHA l_akG l_akB l_akM l_akE l_akA l_akO l_akU l_akY
+#define ALPHA_ALL ALPHA
 
 /* Combos */
 
@@ -101,145 +60,13 @@ ZMK_COMBO(combo_z,       &kp Z,   LT4 LT3, ALPHA_ALL, COMBO_TERM_SLOW)
 
 /* Mod morphs */
 
-ZMK_BEHAVIOR(CmmaSemi, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp COMMA>, <&typeSemi>;
-)
-ZMK_BEHAVIOR(typeSemi, macro,
-    bindings = <&macro_release &kp LSHFT>
-            , <&macro_tap &kp SEMICOLON>;
-)
-ZMK_BEHAVIOR(DotColn, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp DOT>, <&kp COLON>;
-)
-ZMK_BEHAVIOR(SlshStar, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp FSLH>, <&kp STAR>;
-)
-ZMK_BEHAVIOR(MinusPlus, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp MINUS>, <&kp PLUS>;
-)
-ZMK_BEHAVIOR(DqtLbkt, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp DQT>, <&kp LBKT>;
-)
-ZMK_BEHAVIOR(SqtRbkt, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp SQT>, <&kp RBKT>;
-)
-
-ZMK_BEHAVIOR(qexl, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp QMARK>, <&kp EXCL>;
-)
-
-ZMK_BEHAVIOR(dunder, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp MINUS>, <&kp UNDER>;
-)
-
-ZMK_BEHAVIOR(bspc_del, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp BSPC>, <&kp DEL>;
-)
-
-ZMK_BEHAVIOR(esc_cancel, macro,
-    bindings = <&kp ESC &kp K_CANCEL>;
-)
-
 /* Adaptive Keys */
-
-ZMK_BEHAVIOR(ak, sticky_key,
-    bindings = <&mo>;
-    release-after-ms = <AK_TAPPING_TERM>;
-    quick-release;
-)
-
-#define MACRO_CHOOSER2(_1, _2, FUNC, ...) FUNC
-#define AK(...) MACRO_CHOOSER2(__VA_ARGS__, AK2, AK1)(__VA_ARGS__)
-#define AK2(KEY, LAYER) ZMK_MACRO_FAST(ak_##KEY, \
-    <&macro_tap &kp KEY>, \
-    <&macro_press &mo l_ak##LAYER>, \
-    <&macro_pause_for_release>, \
-    <&macro_release &mo l_ak##LAYER>, \
-    <&ak l_ak##LAYER>)
-#define AK1(KEY) AK2(KEY, KEY)
-
-AK2(G, G)
-AK2(B, B)
-AK2(M, M)
-AK2(A, A)
-AK2(U, U)
-AK2(E, E)
-AK2(O, O)
-AK2(Y, Y)
-
-ZMK_MACRO_FAST(ak_lg, <&kp BSPC &kp L &kp G>)
 
 // keymap
 
 ZMK_LAYER(default_layer,
-     &kp X         &kp W        &kp M        &kp G          &kp J        &bspc_del      &DotColn        &SlshStar      &DqtLbkt     &SqtRbkt
-     &kp S         &kp C        &kp N        &kp T          &kp K        &CmmaSemi      &kp A           &kp E          &kp I        &kp H
-XXX  &kp B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U           &kp O          &kp Y        &kp F         XXX
+     &kp X         &kp W        &kp M        &kp G          &kp J        &kp BSPC       &kp DOT         &kp SLASH      &kp DQT      &kp SQT
+     &kp S         &kp C        &kp N        &kp T          &kp K        &kp COMMA      &kp A           &kp E          &kp I        &kp H
+XXX  &kp B         &kp P        &kp L        &kp D          &kp V        &kp MINUS      &kp U           &kp O          &kp Y        &kp F         XXX
                                 XXX          &sk LSHFT      &kp R        &kp SPACE      &sk LSHFT       XXX
-)
-
-ZMK_LAYER(l_akG,
-        ___     ___     &kp L   ___     ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-ZMK_LAYER(l_akB,
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-        ___     &kp S   ___     ___     ___    ___     ___     ___     ___     ___
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-ZMK_LAYER(l_akM,
-        ___     ___     ___     &ak_lg  ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-ZMK_LAYER(l_akE,
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     &kp O
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-// a after e to resolve timing issues when typing "eau" fast
-ZMK_LAYER(l_akA,
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     &kp U
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-ZMK_LAYER(l_akO,
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     &kp E
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-ZMK_LAYER(l_akU,
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     &kp A
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     ___     ___
-                        ___     ___     ___    ___     ___     ___
-)
-
-ZMK_LAYER(l_akY,
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-        ___     ___     ___     ___     ___    ___     ___     ___     ___     ___
-___     ___     ___     ___     ___     ___    ___     ___     ___     ___     &kp I   ___
-                        ___     ___     ___    ___     ___     ___
 )
