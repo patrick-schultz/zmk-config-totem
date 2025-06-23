@@ -96,6 +96,8 @@ ZMK_HOLD_TAP(layer_sticky,
 MAKE_HRM(hml, &kp, &kp, KEYS_R KEYS_T)
 MAKE_HRM(hmr, &kp, &kp, KEYS_L KEYS_T)
 
+MAKE_HRM(hrm_h, &kp, &ak_h, KEYS_L KEYS_T)
+
 ZMK_HOLD_TAP(lt_oss,
     flavor = "balanced";
     tapping-term-ms = <LAYER_TAPPING_TERM>;
@@ -202,6 +204,19 @@ ZMK_MACRO_FAST(Ph,
     , <&macro_tap &kp H>
 )
 
+/* Adaptives */
+
+#define AK(NAME, TRIGGER, BINDINGS) \
+    akt_##NAME { trigger-keys = <TRIGGER>; max-prior-idle-ms = <AK_TAPPING_TERM>; bindings = BINDINGS; }
+
+ZMK_ADAPTIVE_KEY(ak_h,
+    bindings = <&kp H>;
+    AK(ah, A, <&kp U>);
+    AK(uh, U, <&kp A>);
+    AK(eh, E, <&kp O>);
+    AK(oh, O, <&kp E>);
+)
+
 /* Mod morphs */
 
 ZMK_MOD_MORPH(CmmaSemi,
@@ -256,7 +271,7 @@ ZMK_MACRO(esc_cancel,
 
 ZMK_LAYER(default_layer,
      &kp X         &kp W        &kp M        &kp G          &kp J        &bspc_del      &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
-     &hml LCTRL S  &hml LALT C  &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hmr RCTRL H
+     &hml LCTRL S  &hml LALT C  &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hrm_h RCTRL H
 XXX  &kp B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U         &kp O        &kp Y        &kp F         XXX
                                 XXX          &sk LSHFT      &lt NUM R    &lt EXT SPACE  &lt_oss FN LSHFT  XXX
 )
