@@ -81,22 +81,19 @@ ZMK_HOLD_TAP(layer_sticky,
 #define ALPHA_ALL ALPHA l_camel l_snake
 
 /* Homerow mods */
-
-#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
-    ZMK_BEHAVIOR(NAME, hold_tap, \
-        flavor = "balanced"; \
-        tapping-term-ms = <HM_TAPPING_TERM>; \
-        quick-tap-ms = <QUICK_TAP_MS>; \
-        require-prior-idle-ms = <170>; \
-        bindings = <HOLD>, <TAP>; \
-        hold-trigger-key-positions = <TRIGGER_POS>; \
-        hold-trigger-on-release; \
-    )
+// consider adding hold-while-undecided                                          
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";            \
+               tapping-term-ms = <HM_TAPPING_TERM>;                            \
+               quick-tap-ms = <QUICK_TAP_MS>;                                  \
+               require-prior-idle-ms = <150>; hold-trigger-on-release;         \
+               hold-trigger-key-positions = <TRIGGER_POS>;)
 
 MAKE_HRM(hml, &kp, &kp, KEYS_R KEYS_T)
 MAKE_HRM(hmr, &kp, &kp, KEYS_L KEYS_T)
 
 MAKE_HRM(hrm_h, &kp, &ak_h, KEYS_L KEYS_T)
+MAKE_HRM(hrm_c, &kp, &ak_c, KEYS_R KEYS_T)
 
 ZMK_HOLD_TAP(lt_oss,
     flavor = "balanced";
@@ -105,6 +102,11 @@ ZMK_HOLD_TAP(lt_oss,
     bindings = <&mo>, <&sk>;
 )
 
+// Hack: Make HRM combos tap-only (cf, ZMK issue #544).
+#define HRM_COMBO(NAME, TAP, POS, LAYERS, COMBO_MS, HOLD, SIDE)     \
+  MAKE_HRM(hm_combo_##NAME, &kp, TAP, SIDE KEYS_T)                             \
+  ZMK_COMBO(NAME, &hm_combo_##NAME HOLD 0, POS, LAYERS, COMBO_MS)
+
 /* Combos */
 
 #undef COMBO_TERM
@@ -112,23 +114,20 @@ ZMK_HOLD_TAP(lt_oss,
 #define COMBO_TERM_FAST 30
 #define COMBO_TERM_SLOW 40
 #define COMBO_TERM_VERT 70
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 50
 
 // h-digraph combos
 
-ZMK_COMBO(combo_wh,   &Wh,                      LT3 LT2,     ALPHA_ALL, COMBO_TERM_FAST)
-ZMK_COMBO(combo_gh,   &Gh,                      LT2 LT1,     ALPHA_ALL, COMBO_TERM_FAST)
-ZMK_COMBO(combo_ght,  &ght,                     LT3 LT2 LT1, ALPHA_ALL, COMBO_TERM_SLOW)
-MAKE_HRM(hm_sh, &kp,  &Sh, KEYS_L KEYS_T)
-ZMK_COMBO(combo_sh,   &hm_sh LC(LALT) 0,        LM4 LM3,     ALPHA_ALL, COMBO_TERM_FAST)
-MAKE_HRM(hm_sch, &kp, &Sch, KEYS_L KEYS_T)
-ZMK_COMBO(combo_sch,  &hm_sch LC(LA(LCMD)) 0,   LM4 LM3 LM2, ALPHA_ALL, COMBO_TERM_SLOW)
-MAKE_HRM(hm_ch, &kp,  &Ch, KEYS_L KEYS_T)
-ZMK_COMBO(combo_ch,   &hm_ch LA(LCMD) 0,        LM3 LM2,     ALPHA_ALL, COMBO_TERM_FAST)
-MAKE_HRM(hm_th, &kp,  &Th, KEYS_L KEYS_T)
-ZMK_COMBO(combo_th,   &hm_th LG(LSHFT) 0,       LM2 LM1,     ALPHA_ALL, COMBO_TERM_FAST)
-MAKE_HRM(hm_tch, &kp, &Tch, KEYS_L KEYS_T)
-ZMK_COMBO(combo_tch,  &hm_tch LA(LG(LSHFT)) 0,  LM3 LM2 LM1, ALPHA_ALL, COMBO_TERM_SLOW)
-ZMK_COMBO(combo_ph,   &Ph,                      LB3 LB2,     ALPHA_ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_wh,   &Wh,   LT3 LT2,     ALPHA_ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_gh,   &Gh,   LT2 LT1,     ALPHA_ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_ght,  &ght,  LT3 LT2 LT1, ALPHA_ALL, COMBO_TERM_SLOW)
+HRM_COMBO(combo_sh,   &Sh,   LM4 LM3,     ALPHA_ALL, COMBO_TERM_FAST, LC(LALT), KEYS_L)
+HRM_COMBO(combo_sch,  &Sch,  LM4 LM3 LM2, ALPHA_ALL, COMBO_TERM_SLOW, LC(LA(LCMD)), KEYS_L)
+HRM_COMBO(combo_ch,   &Ch,   LM3 LM2,     ALPHA_ALL, COMBO_TERM_FAST, LA(LCMD), KEYS_L)
+HRM_COMBO(combo_th,   &Th,   LM2 LM1,     ALPHA_ALL, COMBO_TERM_FAST, LG(LSHFT), KEYS_L)
+HRM_COMBO(combo_tch,  &Tch,  LM3 LM2 LM1, ALPHA_ALL, COMBO_TERM_SLOW, LA(LG(LSHFT)), KEYS_L)
+ZMK_COMBO(combo_ph,   &Ph,   LB3 LB2,     ALPHA_ALL, COMBO_TERM_FAST)
 
 // editing combos
 
@@ -206,16 +205,17 @@ ZMK_MACRO_FAST(Ph,
 
 /* Adaptives */
 
-#define AK(NAME, TRIGGER, BINDINGS) \
+#define AK2(NAME, TRIGGER, BINDINGS) \
     akt_##NAME { trigger-keys = <TRIGGER>; max-prior-idle-ms = <AK_TAPPING_TERM>; bindings = BINDINGS; }
 
-ZMK_ADAPTIVE_KEY(ak_h,
-    bindings = <&kp H>;
-    AK(ah, A, <&kp U>);
-    AK(uh, U, <&kp A>);
-    AK(eh, E, <&kp O>);
-    AK(oh, O, <&kp E>);
-)
+#define AK(TRIGGER, BINDING) AK2(TRIGGER##BINDING, TRIGGER, <&kp BINDING>)
+ 
+ZMK_ADAPTIVE_KEY(ak_h, bindings = <&kp H>; AK(A, U); AK(U, A); AK(E, O); AK(O, E);)
+ZMK_ADAPTIVE_KEY(ak_m, bindings = <&kp M>; AK(G, L);)
+ZMK_ADAPTIVE_KEY(ak_c, bindings = <&kp C>; AK(B, S);)
+ZMK_ADAPTIVE_KEY(ak_g, bindings = <&kp G>; AK2(mg, M, <&kp BSPC &kp L &kp G>);)
+ZMK_ADAPTIVE_KEY(ak_x, bindings = <&kp X>; AK(M, B);)
+ZMK_ADAPTIVE_KEY(ak_b, bindings = <&kp B>; AK2(cb, C, <&kp BSPC &kp S &kp B>);)
 
 /* Mod morphs */
 
@@ -270,9 +270,9 @@ ZMK_MACRO(esc_cancel,
 // keymap
 
 ZMK_LAYER(default_layer,
-     &kp X         &kp W        &kp M        &kp G          &kp J        &bspc_del      &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
-     &hml LCTRL S  &hml LALT C  &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hrm_h RCTRL H
-XXX  &kp B         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U         &kp O        &kp Y        &kp F         XXX
+     &ak_x         &kp W        &ak_m        &ak_g          &kp J        &bspc_del      &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
+     &hml LCTRL S &hrm_c LALT C &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hrm_h RCTRL H
+XXX  &ak_b         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U         &kp O        &kp Y        &kp F         XXX
                                 XXX          &sk LSHFT      &lt NUM R    &lt EXT SPACE  &lt_oss FN LSHFT  XXX
 )
 
