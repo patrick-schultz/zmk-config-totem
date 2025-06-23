@@ -59,12 +59,12 @@
         bindings = __VA_ARGS__ ; \
     )
 
-ZMK_BEHAVIOR(long_sticky, sticky_key,
+ZMK_STICKY_KEY(long_sticky,
     bindings = <&kp>;
     release-after-ms = <5000>;
     quick-release;)
 
-ZMK_BEHAVIOR(layer_sticky, hold_tap,
+ZMK_HOLD_TAP(layer_sticky,
     flavor = "balanced";
     tapping-term-ms = <LAYER_TAPPING_TERM>;
     quick-tap-ms = <QUICK_TAP_MS>;
@@ -96,7 +96,7 @@ ZMK_BEHAVIOR(layer_sticky, hold_tap,
 MAKE_HRM(hml, &kp, &kp, KEYS_R KEYS_T)
 MAKE_HRM(hmr, &kp, &kp, KEYS_L KEYS_T)
 
-ZMK_BEHAVIOR(lt_oss, hold_tap,
+ZMK_HOLD_TAP(lt_oss,
     flavor = "balanced";
     tapping-term-ms = <LAYER_TAPPING_TERM>;
     quick-tap-ms = <QUICK_TAP_MS>;
@@ -204,51 +204,51 @@ ZMK_MACRO_FAST(Ph,
 
 /* Mod morphs */
 
-ZMK_BEHAVIOR(CmmaSemi, mod_morph,
+ZMK_MOD_MORPH(CmmaSemi,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp COMMA>, <&typeSemi>;
 )
-ZMK_BEHAVIOR(typeSemi, macro,
+ZMK_MACRO(typeSemi,
     bindings = <&macro_release &kp LSHFT>
             , <&macro_tap &kp SEMICOLON>;
 )
-ZMK_BEHAVIOR(DotColn, mod_morph,
+ZMK_MOD_MORPH(DotColn,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp DOT>, <&kp COLON>;
 )
-ZMK_BEHAVIOR(SlshStar, mod_morph,
+ZMK_MOD_MORPH(SlshStar,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp FSLH>, <&kp STAR>;
 )
-ZMK_BEHAVIOR(MinusPlus, mod_morph,
+ZMK_MOD_MORPH(MinusPlus,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp MINUS>, <&kp PLUS>;
 )
-ZMK_BEHAVIOR(DqtLbkt, mod_morph,
+ZMK_MOD_MORPH(DqtLbkt,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp DQT>, <&kp LBKT>;
 )
-ZMK_BEHAVIOR(SqtRbkt, mod_morph,
+ZMK_MOD_MORPH(SqtRbkt,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp SQT>, <&kp RBKT>;
 )
 
-ZMK_BEHAVIOR(qexl, mod_morph,
+ZMK_MOD_MORPH(qexl,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp QMARK>, <&kp EXCL>;
 )
 
-ZMK_BEHAVIOR(dunder, mod_morph,
+ZMK_MOD_MORPH(dunder,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp MINUS>, <&kp UNDER>;
 )
 
-ZMK_BEHAVIOR(bspc_del, mod_morph,
+ZMK_MOD_MORPH(bspc_del,
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp BSPC>, <&kp DEL>;
 )
 
-ZMK_BEHAVIOR(esc_cancel, macro,
+ZMK_MACRO(esc_cancel,
     bindings = <&kp ESC &kp K_CANCEL>;
 )
 
