@@ -99,13 +99,21 @@ ZMK_HOLD_TAP(lt_oss,
     flavor = "balanced";
     tapping-term-ms = <LAYER_TAPPING_TERM>;
     quick-tap-ms = <QUICK_TAP_MS>;
-    bindings = <&mo>, <&sk>;
+    bindings = <&mo>, <&smart_case>;
 )
 
 // Hack: Make HRM combos tap-only (cf, ZMK issue #544).
 #define HRM_COMBO(NAME, TAP, POS, LAYERS, COMBO_MS, HOLD, SIDE)     \
   MAKE_HRM(hm_combo_##NAME, &kp, TAP, SIDE KEYS_T)                             \
   ZMK_COMBO(NAME, &hm_combo_##NAME HOLD 0, POS, LAYERS, COMBO_MS)
+
+/* Smart case */
+
+ZMK_MOD_MORPH(smart_case, bindings = <&sk LSHFT>, <&caps_word>;
+              mods = <(MOD_LSFT)>;)
+&caps_word { // Mods deactivate caps-word
+  /delete-property/ ignore-modifiers;
+};
 
 /* Combos */
 
@@ -273,7 +281,7 @@ ZMK_LAYER(default_layer,
      &ak_x         &kp W        &ak_m        &ak_g          &kp J        &bspc_del      &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
      &hml LCTRL S &hrm_c LALT C &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hrm_h RCTRL H
 XXX  &ak_b         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U         &kp O        &kp Y        &kp F         XXX
-                                XXX          &sk LSHFT      &lt NUM R    &lt EXT SPACE  &lt_oss FN LSHFT  XXX
+                                XXX          &smart_case    &lt NUM R    &lt EXT SPACE  &lt_oss FN 0  XXX
 )
 
 ZMK_LAYER(l_camel,
