@@ -33,7 +33,7 @@
 #define HM_TAPPING_TERM 280
 #define HM_TAPPING_TERM_FAST 200
 #define LAYER_TAPPING_TERM 200
-#define AK_TAPPING_TERM 40
+#define AK_TAPPING_TERM 280
 #define LK_TAPPING_TERM 200
 #define QUICK_TAP_MS 175
 
@@ -127,34 +127,35 @@ ZMK_MOD_MORPH(smart_case, bindings = <&sk LSHFT>, <&caps_word>;
 
 // h-digraph combos
 
-ZMK_COMBO(combo_wh,   &Wh,   LT3 LT2,     ALPHA_ALL, COMBO_TERM_FAST)
-ZMK_COMBO(combo_gh,   &Gh,   LT2 LT1,     ALPHA_ALL, COMBO_TERM_FAST)
-ZMK_COMBO(combo_ght,  &ght,  LT3 LT2 LT1, ALPHA_ALL, COMBO_TERM_SLOW)
-HRM_COMBO(combo_sh,   &Sh,   LM4 LM3,     ALPHA_ALL, COMBO_TERM_FAST, LC(LALT), KEYS_L)
-HRM_COMBO(combo_sch,  &Sch,  LM4 LM3 LM2, ALPHA_ALL, COMBO_TERM_SLOW, LC(LA(LCMD)), KEYS_L)
-HRM_COMBO(combo_ch,   &Ch,   LM3 LM2,     ALPHA_ALL, COMBO_TERM_FAST, LA(LCMD), KEYS_L)
-HRM_COMBO(combo_th,   &Th,   LM2 LM1,     ALPHA_ALL, COMBO_TERM_FAST, LG(LSHFT), KEYS_L)
-HRM_COMBO(combo_tch,  &Tch,  LM3 LM2 LM1, ALPHA_ALL, COMBO_TERM_SLOW, LA(LG(LSHFT)), KEYS_L)
-ZMK_COMBO(combo_ph,   &Ph,   LB3 LB2,     ALPHA_ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_wh,  &Wh,  LT3 LT2,     ALPHA_ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_gh,  &Gh,  LT2 LT1,     ALPHA_ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_ght, &ght, LT3 LT2 LT1, ALPHA_ALL, COMBO_TERM_SLOW)
+HRM_COMBO(combo_sh,  &Sh,  LM4 LM3,     ALPHA_ALL, COMBO_TERM_FAST, LC(LALT), KEYS_R)
+HRM_COMBO(combo_sch, &Sch, LM4 LM3 LM2, ALPHA_ALL, COMBO_TERM_SLOW, LC(LA(LCMD)), KEYS_R)
+HRM_COMBO(combo_ch,  &Ch,  LM3 LM2,     ALPHA_ALL, COMBO_TERM_FAST, LA(LCMD), KEYS_R)
+HRM_COMBO(combo_th,  &Th,  LM2 LM1,     ALPHA_ALL, COMBO_TERM_FAST, LG(LSHFT), KEYS_R)
+HRM_COMBO(combo_tch, &Tch, LM3 LM2 LM1, ALPHA_ALL, COMBO_TERM_SLOW, LA(LG(LSHFT)), KEYS_R)
+ZMK_COMBO(combo_ph,  &Ph,  LB3 LB2,     ALPHA_ALL, COMBO_TERM_FAST)
 
 // editing combos
 
-ZMK_COMBO(undo, &kp LG(Z),       LB4 LB3,     ALL, COMBO_TERM_FAST)
-ZMK_COMBO(redo, &kp LG(LS(Z)),   LB4 LB3 LB2, ALL, COMBO_TERM_SLOW)
-ZMK_COMBO(cut,  &kp LG(X),       LB3 LB2 LB1, ALL, COMBO_TERM_SLOW)
-ZMK_COMBO(copy, &kp LG(C),       LB3 LB1,     ALL, COMBO_TERM_SLOW)
-ZMK_COMBO(pste, &kp LG(V),       LB2 LB1,     ALL, COMBO_TERM_FAST)
+ZMK_COMBO(undo, &kp LG(Z),     LB4 LB3,     ALL, COMBO_TERM_FAST)
+ZMK_COMBO(redo, &kp LG(LS(Z)), LB4 LB3 LB2, ALL, COMBO_TERM_SLOW)
+ZMK_COMBO(cut,  &kp LG(X),     LB3 LB2 LB1, ALL, COMBO_TERM_SLOW)
+ZMK_COMBO(copy, &kp LG(C),     LB3 LB1,     ALL, COMBO_TERM_SLOW)
+ZMK_COMBO(pste, &kp LG(V),     LB2 LB1,     ALL, COMBO_TERM_FAST)
 
-ZMK_COMBO(combo_esc, &hmr RG(RSHFT) ESC, RM1 RM2, ALL, COMBO_TERM_FAST)
-ZMK_COMBO(combo_esc_vert, &kp ESC,       RT1 RM1, ALL, COMBO_TERM_VERT)
-ZMK_COMBO(combo_ret, &hmr RG(RSHFT) RET, RB1 RB2, ALL, COMBO_TERM_FAST)
+MAKE_HRM(hm_combo_esc, &kp, &kp, KEYS_L KEYS_T)
+ZMK_COMBO(combo_esc,      &hm_combo_esc RG(RSHFT) ESC, RM1 RM2, ALL, COMBO_TERM_FAST)
+ZMK_COMBO(combo_esc_vert, &kp ESC,                     RT1 RM1, ALL, COMBO_TERM_VERT)
+ZMK_COMBO(combo_ret,      &kp RET,                     RB1 RB2, ALL, COMBO_TERM_FAST)
 
 // glyph combos
 
-ZMK_COMBO(combo_qu,      &kp Q,   LT3 LT1, ALPHA_ALL, 80)
-ZMK_COMBO(combo_z,       &kp Z,   LT4 LT3, ALPHA_ALL, COMBO_TERM_SLOW)
-ZMK_COMBO(combo_qu_vert, &kp Q,   LT3 LM3, ALPHA_ALL, COMBO_TERM_VERT)
-ZMK_COMBO(combo_z_vert,  &kp Z,   LT4 LM4, ALPHA_ALL, COMBO_TERM_VERT)
+ZMK_COMBO(combo_qu,      &kp Q, LT3 LT1, ALPHA_ALL, 80)
+ZMK_COMBO(combo_z,       &kp Z, LT4 LT3, ALPHA_ALL, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_qu_vert, &kp Q, LT3 LM3, ALPHA_ALL, COMBO_TERM_VERT)
+ZMK_COMBO(combo_z_vert,  &kp Z, LT4 LM4, ALPHA_ALL, COMBO_TERM_VERT)
 
 ZMK_COMBO(combo_colon, &kp COLON,         RT1 RT3, ALPHA_ALL, COMBO_TERM_SLOW)
 ZMK_COMBO(combo_excl,  &kp EXCL,          RT1 RT2, ALPHA_ALL, COMBO_TERM_FAST)
@@ -168,7 +169,7 @@ ZMK_COMBO(combo_ndash, &kp LA(MINUS),     RB0 RB1, ALPHA_ALL, COMBO_TERM_FAST) /
 ZMK_COMBO(combo_mdash, &kp LA(LS(MINUS)), RB0 RB2, ALPHA_ALL, COMBO_TERM_SLOW) // M-dash
 
 // macros for h-digraphs
-    
+
 ZMK_MACRO_FAST(Wh,
     <&macro_tap &kp W>
     , <&macro_release &kp LSHFT &kp RSHFT>
@@ -266,11 +267,6 @@ ZMK_MOD_MORPH(dunder,
     bindings = <&kp MINUS>, <&kp UNDER>;
 )
 
-ZMK_MOD_MORPH(bspc_del,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp BSPC>, <&kp DEL>;
-)
-
 ZMK_MACRO(esc_cancel,
     bindings = <&kp ESC &kp K_CANCEL>;
 )
@@ -278,7 +274,7 @@ ZMK_MACRO(esc_cancel,
 // keymap
 
 ZMK_LAYER(default_layer,
-     &ak_x         &kp W        &ak_m        &ak_g          &kp J        &bspc_del      &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
+     &ak_x         &kp W        &ak_m        &ak_g          &kp J        &kp BSPC       &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
      &hml LCTRL S &hrm_c LALT C &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hrm_h RCTRL H
 XXX  &ak_b         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U         &kp O        &kp Y        &kp F         XXX
                                 XXX          &smart_case    &lt NUM R    &lt EXT SPACE  &lt_oss FN 0  XXX
