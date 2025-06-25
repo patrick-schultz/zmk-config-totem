@@ -88,6 +88,7 @@ ZMK_HOLD_TAP(layer_sticky,
                tapping-term-ms = <HM_TAPPING_TERM>;                               \
                quick-tap-ms = <QUICK_TAP_MS>;                                     \
                require-prior-idle-ms = <HRM_PRIOR_IDLE>; hold-trigger-on-release; \
+               hold-while-undecided; hold-while-undecided-linger;                 \
                hold-trigger-key-positions = <TRIGGER_POS>;)
 
 MAKE_HRM(hml, &kp, &kp, KEYS_R KEYS_T)
