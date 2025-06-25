@@ -33,7 +33,7 @@
 #define HM_TAPPING_TERM 280
 #define HM_TAPPING_TERM_FAST 200
 #define LAYER_TAPPING_TERM 200
-#define AK_TAPPING_TERM 280
+#define AK_TAPPING_TERM 200
 #define LK_TAPPING_TERM 200
 #define QUICK_TAP_MS 175
 
@@ -218,13 +218,20 @@ ZMK_MACRO_FAST(Ph,
     akt_##NAME { trigger-keys = <TRIGGER>; max-prior-idle-ms = <AK_TAPPING_TERM>; bindings = BINDINGS; }
 
 #define AK(TRIGGER, BINDING) AK2(TRIGGER##BINDING, TRIGGER, <&kp BINDING>)
- 
+
 ZMK_ADAPTIVE_KEY(ak_h, bindings = <&kp H>; AK(A, U); AK(U, A); AK(E, O); AK(O, E);)
-ZMK_ADAPTIVE_KEY(ak_m, bindings = <&kp M>; AK(G, L);)
+// gm->gl, wm->lm
+ZMK_ADAPTIVE_KEY(ak_m, bindings = <&kp M>; AK(G, L); AK2(wm, W, <&kp BSPC &kp L &kp M>);)
+// bc->bs
 ZMK_ADAPTIVE_KEY(ak_c, bindings = <&kp C>; AK(B, S);)
+// mg->lg
 ZMK_ADAPTIVE_KEY(ak_g, bindings = <&kp G>; AK2(mg, M, <&kp BSPC &kp L &kp G>);)
+// mx->mb
 ZMK_ADAPTIVE_KEY(ak_x, bindings = <&kp X>; AK(M, B);)
+// cb->sb
 ZMK_ADAPTIVE_KEY(ak_b, bindings = <&kp B>; AK2(cb, C, <&kp BSPC &kp S &kp B>);)
+// mw->mp
+ZMK_ADAPTIVE_KEY(ak_w, bindings = <&kp W>; AK(M, P);)
 
 /* Mod morphs */
 
