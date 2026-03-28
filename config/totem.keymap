@@ -290,7 +290,7 @@ ZMK_LAYER(default_layer,
      &ak_x         &kp W        &ak_m        &ak_g          &kp J        &kp BSPC       &DotColn      &SlshStar    &DqtLbkt     &SqtRbkt
      &hml LCTRL S &hrm_c LALT C &hml LCMD N  &hml LSHFT T   &kp K        &CmmaSemi      &hmr RSHFT A  &hmr RCMD E  &hmr RALT I  &hrm_h RCTRL H
 XXX  &ak_b         &kp P        &kp L        &kp D          &kp V        &MinusPlus     &kp U         &kp O        &kp Y        &kp F         XXX
-                                XXX          &smart_case    &lt NUM R    &lt EXT SPACE  &lt_oss FN 0  XXX
+                        &kp RS(RC(RG(RALT))) &smart_case    &lt NUM R    &lt EXT SPACE  &lt_oss FN 0  &kp RS(RC(RG(RALT)))
 )
 
 ZMK_LAYER(l_camel,
